@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function show()
     {
-        return Users::all();
+        return response()->json(Users::all());
     }
 
     public function add(Request $request)
@@ -27,6 +27,9 @@ class UserController extends Controller
             'employee_id' => $request->get('employee_id')
         ]);
 
+        return response()->json([
+            'success' => true
+        ]);
     }
 
     public function update(string $employee_id, Request $request)
@@ -54,6 +57,10 @@ class UserController extends Controller
 
         $user = Users::query()->from('users')->where('employee_id', '=', $employee_id);
         $user->update($updateArr);
+
+        return response()->json([
+            'success' => true
+        ]);
     }
 
     public function delete(string $employee_id, Request $request)
@@ -64,5 +71,9 @@ class UserController extends Controller
 
         $user = Users::query()->from('users')->where('employee_id', '=', $employee_id);
         $user->delete();
+
+        return response()->json([
+            'success' => true
+        ]);
     }
 }

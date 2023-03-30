@@ -19,6 +19,6 @@ use App\Http\Controllers\UserController;
 Route::controller(UserController::class)->group(function () {
     Route::get('/users', 'show');
     Route::post('/user', 'add');
-    Route::patch('/user/employee/{employee_id}', 'update');
+    Route::post('/user/employee/{employee_id}', 'update'); // TODO: Would prefer patch/put but the solution to make it work is ugly
     Route::delete('/user/employee/{employee_id}', 'delete');
 });

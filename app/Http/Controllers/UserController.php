@@ -34,24 +34,25 @@ class UserController extends Controller
 
     public function update(string $employee_id, Request $request)
     {
+
         validator($request->route()->parameters(), [
             'employee_id' => ['required', new EmployeeIDValidation]
         ])->validate();
 
-        $this->validate($request, [
-            'email' => 'email|max:255',
+        $request->validate([
+            'email' => 'email|unique:users,email|max:255',
             'name' => 'string|max:255',
-            'employee_id' => ['required', new EmployeeIDValidation]
+            'employee_id' => [new EmployeeIDValidation]
         ]);
 
         $updateArr = [];
-        if($request->get('email') != ''){
+        if($request->get('email') != null){
             $updateArr['email'] = $request->get('email');
         }
-        if($request->get('name') != ''){
+        if($request->get('name') != null){
             $updateArr['name'] = $request->get('name');
         }
-        if($request->get('employee_id') != ''){
+        if($request->get('employee_id') != null){
             $updateArr['employee_id'] = $request->get('employee_id');
         }
 

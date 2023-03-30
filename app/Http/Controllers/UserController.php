@@ -15,17 +15,17 @@ class UserController extends Controller
 
     public function add(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'email' => 'required|email|unique:users,email|max:255',
             'name' => 'required|string|max:255',
             'employee_id' => ['required', new EmployeeIDValidation]
         ]);
 
-        Users::created([
-            'email' => $request->get('email'),
-            'name' => $request->get('name'),
-            'employee_id' => $request->get('employee_id')
-        ]);
+        $user= new Users();
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->employee_id = $request->get('employee_id');
+        $user->save();
 
         return response()->json([
             'success' => true
